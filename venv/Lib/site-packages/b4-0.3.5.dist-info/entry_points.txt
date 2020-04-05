@@ -1,0 +1,3 @@
+[console_scripts]
+b4 = b4.command:cmd
+
