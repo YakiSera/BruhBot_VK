@@ -1,4 +1,5 @@
 from command_enum import Command
+from friends_enum import FriendList
 from mode_enum import Mode
 from talking import BotTalk
 import random
@@ -82,8 +83,11 @@ class Commander:
                 return talk.input(4)
 
             # Насколько ты гей
-            if msg in Command.how_many_gay.value:
-                return "[id" + str(person_id) + "|" + username + "]," + " ты гей на " + str(random.randint(0, 100)) + "%"
-
+            if msg in Command.how_many_gay.value and person_id in FriendList.gay_list.value:
+                return "[id" + str(person_id) + "|" + username + "]," + " ты гей на "\
+                       + str(random.randint(100, 1000)) + "%"
+            elif msg in Command.how_many_gay.value:
+                return "[id" + str(person_id) + "|" + username + "]," + " ты гей на "\
+                       + str(random.randint(0, 100)) + "%"
 
         return None
