@@ -75,6 +75,8 @@ class Commander:
             if msg in Command.bye_msg.value:
                 return talk.input(3)
 
+            if msg in Command.morn_msg.value:
+                return talk.input(4)
 
 
 
