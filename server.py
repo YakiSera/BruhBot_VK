@@ -20,6 +20,9 @@ class Server:
         # Словарь дял каждого отдельного пользователя
         self.users = {}
 
+    def get_user_name(self, user_id):
+        return self.vk_api.users.get(user_id=user_id)[0]['first_name']
+
     def send_message(self, send_id, message):
         self.vk_api.messages.send(peer_id=send_id, message=message, random_id=get_rand())
 
@@ -29,10 +32,9 @@ class Server:
                 if event.object.from_id not in self.users:
                     self.users[event.object.message['from_id']] = Commander()
                 if event.type == VkBotEventType.MESSAGE_NEW:
-                    if self.users[event.object.message['from_id']].input(event.object.message['text'], event.object.message['from_id']) != None:
+                    if self.users[event.object.message['from_id']].input(event.object.message['text'], event.object.message['from_id'],
+                                                                         self.get_user_name(event.object.message['from_id'])) != None:
                         self.send_message(event.object.message['peer_id'],
-                                          self.users[event.object.message['from_id']].input(event.object.message['text'], event.object.message['from_id']))
-
-    def get_user_name(self, user_id):
-        return self.vk_api.users.get(user_id=user_id)[0]['first_name']
+                                          self.users[event.object.message['from_id']].input(event.object.message['text'],
+                                                                                            event.object.message['from_id'], self.get_user_name(event.object.message['from_id'])))
 

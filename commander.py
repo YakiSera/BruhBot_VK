@@ -1,6 +1,7 @@
 from command_enum import Command
 from mode_enum import Mode
 from talking import BotTalk
+import random
 
 # Рабочие модули
 from myanimelist import Myanimelist
@@ -30,7 +31,7 @@ class Commander:
 
         self.last_ans = None
 
-    def input(self, msg, person_id):
+    def input(self, msg, person_id, username):
         """
         Функция принимающая сообщения пользователя
         :param msg: Сообщение
@@ -62,7 +63,9 @@ class Commander:
 
                 return res
 
-            if msg in Command.whoami.value:
+            if msg in Command.whoami.value and person_id == 233908651:
+                return "Ты мой разработчик и говно-("
+            elif msg in Command.whoami.value:
                 return "Ты говно-("
 
             # Болталка
@@ -78,6 +81,9 @@ class Commander:
             if msg in Command.morn_msg.value:
                 return talk.input(4)
 
+            # Насколько ты гей
+            if msg in Command.how_many_gay.value:
+                return "[id" + str(person_id) + "|" + username + "]," + " ты гей на " + str(random.randint(0, 100)) + "%"
 
 
         return None
