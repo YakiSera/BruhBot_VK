@@ -2,6 +2,7 @@ from command_enum import Command
 from friends_enum import FriendList
 from mode_enum import Mode
 from talking import BotTalk
+from database import add_info
 import random
 
 # Рабочие модули
@@ -68,6 +69,13 @@ class Commander:
                 return "Ты мой разработчик и говно-("
             elif msg in Command.whoami.value:
                 return "Ты говно-("
+
+            if msg in Command.add_me.value:
+                if add_info(person_id, 'mailinglist.csv') != 0:
+                    print('Появился новый подписчик ' + str(person_id) + ' ' + str(username))
+                    return "Теперь ты будешь знать, когда я проснусь!"
+                else:
+                    return "Ты и так знаешь, когда я не сплю"
 
             # Болталка
             if msg in Command.hello_msg.value:

@@ -3,4 +3,5 @@ from config import vk_api_token, vk_group_id
 
 server1 = Server(vk_api_token, vk_group_id, "BruhBot")
 print('Запуск бота..')
+server1.send_to_subs()
 server1.start()
